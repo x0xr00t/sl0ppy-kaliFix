@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+a='Please enter your choice: '
+options=("apt issue fix" "dpkg issue fix" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "apt issue fix")
+            echo " {sl0p} we gonna fix ur apt issues"
+            sleep 3
+            apt --fix-broken install -y  & apt clean -y & apt dist-upgrade -y
+            ;;
+        "dpkg issue fix")
+            echo " {sl0p} we gonna fix ur dpkg issues"
+            sleep 
+            dpkg --configure -a
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
