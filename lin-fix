@@ -13,7 +13,7 @@ do
             ;;
         "dpkg issue fix")
             echo " {sl0p} we gonna fix ur dpkg issues"
-            sleep 
+            sleep 3
             $fixdpkg
             ;;
         "Quit")
