@@ -9,7 +9,7 @@ do
         "apt issue fix")
             echo " {sl0p} we gonna fix ur apt issues"
             sleep 3
-            apt --fix-broken install -y  & apt clean -y & apt dist-upgrade -y
+            apt --fix-broken install -y apt auto-remove -y & apt clean -y & apt dist-upgrade -y
             ;;
         "dpkg issue fix")
             echo " {sl0p} we gonna fix ur dpkg issues"
