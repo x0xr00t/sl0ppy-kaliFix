@@ -1,6 +1,6 @@
 #!/bin/bash
-
-
+fixapt="apt --fix-broken install -y & apt auto-remove -y & apt clean -y & apt dist-upgrade -y"
+fixdpkg="dpkg --configure -a -y"
 a='Please enter your choice: '
 options=("apt issue fix" "dpkg issue fix" "Quit")
 select opt in "${options[@]}"
@@ -9,12 +9,12 @@ do
         "apt issue fix")
             echo " {sl0p} we gonna fix ur apt issues"
             sleep 3
-            apt --fix-broken install -y apt auto-remove -y & apt clean -y & apt dist-upgrade -y
+            $fixapt
             ;;
         "dpkg issue fix")
             echo " {sl0p} we gonna fix ur dpkg issues"
             sleep 
-            dpkg --configure -a
+            $fixdpkg
             ;;
         "Quit")
             break
