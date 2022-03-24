@@ -1,6 +1,6 @@
 #!/bin/bash
-fixapt="apt clean & apt --fix-broken install -y & apt dist-upgrade -f "
-fixdpkg="apt clean & dpkg --configure -a -y & apt install -f & apt dist-upgrade -f "
+fixapt="apt clean & apt --fix-broken install -y & apt dist-upgrade --allow-downgrades -f "
+fixdpkg="apt clean & dpkg --configure -a -y & apt install -f & apt dist-upgrade --allow-downgrades -ff "
 a='Please enter your choice: '
 options=("apt issue fix" "dpkg issue fix" "Quit")
 select opt in "${options[@]}"
