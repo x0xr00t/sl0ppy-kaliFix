@@ -1,4 +1,4 @@
-# lin-fix
+# sl0ppy-Kalifix
 A small fixer for common linux|kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
 # issues 
