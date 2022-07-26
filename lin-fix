@@ -1,24 +1,38 @@
 #!/bin/bash
 fixapt="apt clean & apt --fix-broken install -y & apt dist-upgrade --allow-downgrades -f "
 fixdpkg="apt clean & dpkg --configure -a -y & apt install -f & apt dist-upgrade --allow-downgrades -f "
+fixchsum='echo "deb http://http.kali.org/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
+apply="apt update -y"
+upgrade="apt full-upgrade -f -y"
 a='Please enter your choice: '
-options=("apt issue fix" "dpkg issue fix" "Quit")
+options=("APT Issue Fix" "CheckSum Error Fix" "DPKG Issue Fix" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
-        "apt issue fix")
-            echo " {sl0p} we gonna fix ur apt issues"
+        "APT Issue Fix")
+            echo " {sl0p} We Gonna Fix Ur APT Issues"
             sleep 3
             $fixapt
             ;;
+        "CheckSUm Erro fix")
+            echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
+            sleep 3
+            $fixxhsum
+            sleep 2 
+            echo " {sl0p} Applying Settings..." 
+            $apply
+            echo " {sl0p} We Gonna Upgrade Now. "
+            $upgrade
+            ;;            
         "dpkg issue fix")
-            echo " {sl0p} we gonna fix ur dpkg issues"
+            echo " {sl0p} We Gonna Fix Ur DPKG Issues"
             sleep 3
             $fixdpkg
             ;;
         "Quit")
             break
             ;;
-        *) echo "invalid option $REPLY";;
+        *) echo " {sl0p} invalid option $REPLY";;
     esac
 done
+
