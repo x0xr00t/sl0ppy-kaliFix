@@ -1,7 +1,5 @@
 # lin-fix
-A small fixer for common linux|kali update|upgrade issues. 
-This tool fixes most of the common issues on linux. 
-It has a downgrade option for if needed. 
+A small fixer for common linux|kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
 # issues 
 * dpkg issues
