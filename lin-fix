@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# team sl0ppyr00t linux issue fixer 
+# author : x0xr00t
+
 fixapt="apt clean & apt --fix-broken install -y & apt dist-upgrade --allow-downgrades -f "
 fixdpkg="apt clean & dpkg --configure -a -y & apt install -f & apt dist-upgrade --allow-downgrades -f "
 fixchsum='echo "deb http://http.kali.org/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
