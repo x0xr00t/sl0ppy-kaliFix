@@ -34,7 +34,7 @@ do
             $fixdpkg
             ;;
         "Apt Fix With Downgrade")
-            echo " {sl0p} We Gonna Fix Ur DPKG Issues"
+            echo " {sl0p} We Gonna Fix Ur APT Issues with downgrade."
             sleep 3
             $downgrade
             ;;            
