@@ -21,7 +21,7 @@ do
         "CheckSUm Error fix")
             echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
             sleep 3
-            $fixxhsum
+            $fixchsum
             sleep 2 
             echo " {sl0p} Applying Settings..." 
             $apply
