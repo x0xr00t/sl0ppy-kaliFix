@@ -12,6 +12,6 @@ It has a downgrade option for if needed.
 * downgrade 
 
 # note: 
-this not fixes all issues, just most common issues for updating upgrading issues.!!
+this not fixes all issues, just most common issues for updating/upgrading issues.!!
 
 
