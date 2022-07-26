@@ -14,7 +14,7 @@ do
             sleep 3
             $fixapt
             ;;
-        "CheckSUm Erro fix")
+        "CheckSUm Error fix")
             echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
             sleep 3
             $fixxhsum
@@ -24,7 +24,7 @@ do
             echo " {sl0p} We Gonna Upgrade Now. "
             $upgrade
             ;;            
-        "dpkg issue fix")
+        "DPKG Issue Fix")
             echo " {sl0p} We Gonna Fix Ur DPKG Issues"
             sleep 3
             $fixdpkg
