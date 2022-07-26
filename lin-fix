@@ -2,12 +2,12 @@
 #
 # team sl0ppyr00t linux issue fixer 
 # author : x0xr00t
-fixapt="apt clean & apt --fix-broken install -y & apt full-upgrade -f "
-fixdpkg="apt clean & dpkg --configure -a -y & apt install -f & --fix-broken install -y & apt full-upgrade -f"
+fixapt="apt clean & apt --fix-broken install -y & apt full-upgrade -f -y"
+fixdpkg="apt clean & dpkg --configure -a -y & apt install -f & --fix-broken install -y & apt full-upgrade -f -y"
 fixchsum='echo "deb http://http.kali.org/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
 apply="apt update -y"
 upgrade="apt full-upgrade -f -y"
-downgrade="apt clean & apt --fix-broken install -y & apt full-upgrade --allow-downgrades -f"
+downgrade="apt clean & apt --fix-broken install -y & apt full-upgrade --allow-downgrades -f -y"
 a='Please enter your choice: '
 options=("APT Issue Fix" "CheckSum Error Fix" "DPKG Issue Fix" "Apt Fix With Downgrade" "Quit")
 select opt in "${options[@]}"
