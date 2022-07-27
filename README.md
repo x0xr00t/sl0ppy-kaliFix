@@ -5,7 +5,9 @@ A small fixer for common linux|kali update|upgrade issues.This tool fixes most o
 * dpkg issues
 * apt issues
 * checksum issues 
- 
+* broken install issues
+* missing install files issues 
+
 # extra functionality
 * downgrade 
 
