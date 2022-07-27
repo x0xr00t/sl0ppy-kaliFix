@@ -2,8 +2,8 @@
 A small fixer for common linux|kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
 # fixes issues 
-* dpkg issues
 * apt issues
+* dpkg issues
 * checksum issues 
 * broken install issues
 * missing install files issues 
