@@ -14,6 +14,8 @@ A small fixer for common linux|kali update|upgrade issues.This tool fixes most o
 # note: 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
 
+# For depracated issues 
+* I advice to run cheksum fix, to sort the issues...  
 
 # for other linux dist.
 * Edit the lin-fix.sh with the right stuff for ur dist.
