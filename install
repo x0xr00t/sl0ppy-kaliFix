@@ -1,0 +1,10 @@
+#!/bin/bash 
+
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+
+chmod +x sl0ppy-KaliFix 
+cp sl0ppy-KaliFix /bin/
