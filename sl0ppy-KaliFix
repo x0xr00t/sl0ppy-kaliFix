@@ -2,6 +2,12 @@
 #
 # team sl0ppyr00t linux issue fixer 
 # author : x0xr00t
+if (( $EUID != 0 )); then
+    echo "Please run as root"
+    exit
+fi
+
+
 fixapt="apt clean & apt --fix-missing -y"
 fixdpkg="apt clean & dpkg --configure -a & apt install -f"
 fixchsum='echo "deb http://http.kali.org/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
