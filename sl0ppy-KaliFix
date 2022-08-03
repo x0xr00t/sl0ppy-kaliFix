@@ -2,14 +2,14 @@
 #
 # team sl0ppyr00t linux issue fixer 
 # author : x0xr00t
-fixapt="apt clean & apt --fix-broken install -f -y"
-fixdpkg="apt clean & dpkg --configure -a & apt install -f -y"
+fixapt="apt clean & apt --fix-missing -y"
+fixdpkg="apt clean & dpkg --configure -a & apt install -f"
 fixchsum='echo "deb http://http.kali.org/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
-fixbroken="apt update --fix-broken install -f -y"
-fixmissing="apt update --fix-missing -f -y"
+fixbroken="apt update --fix-broken install -y"
+fixmissing="apt update --fix-missing -y"
 apply="apt update -y"
-upgrade="apt full-upgrade -f -y"
-downgrade="apt clean & apt --fix-broken install -y & apt full-upgrade --allow-downgrades -f -y"
+upgrade="apt full-upgrade -y"
+downgrade="apt clean & apt --fix-broken install -y & apt full-upgrade --allow-downgrades -y"
 a='Please enter your choice: '
 options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Quit")
 select opt in "${options[@]}"
@@ -45,7 +45,7 @@ do
             echo " {sl0p} We Gonna Upgrade Now. "
             $upgrade
             ;;            
-        "CheckSUm Fix")
+        "CheckSum Fix")
             echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
             sleep 3
             $fixchsum
