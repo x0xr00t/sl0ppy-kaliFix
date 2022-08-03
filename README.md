@@ -17,6 +17,16 @@ this not fixes all issues, just most common issues for updating/upgrading issues
 # For depracated depency issues 
 * I advice to run cheksum fix, to sort the issues...  
 
+# Install 
+* `chmod +x install`
+* `./install`
+
+# Usage
+* open terminal and type
+* `sl0ppy-KaliFix`
+* pick ur fix by enter `1, 2, 3, 4, 5, 6, etc.`
+
+
 # for other linux dist.
 * Edit the lin-fix.sh with the right stuff for ur dist.
 * Edit the sources.list from kali to ur most recent distro
