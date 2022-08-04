@@ -28,7 +28,8 @@ this not fixes all issues, just most common issues for updating/upgrading issues
 
 
 # for other linux dist.
-* Edit the lin-fix.sh with the right stuff for ur dist.
-* Edit the sources.list from kali to ur most recent distro
+* Edit the Sl0ppy-Kalifix with the right stuff for ur dist.
+* Edit the sources.list from kali to ur most recent dist.
 
 For the rest it should work as long u change that..! 
+
