@@ -9,8 +9,6 @@ if (( $EUID != 0 )); then
 fi
 
 red='\e[31m'
-green='\e[32m'
-lgreen='\e[92m'
 yellow='\e[33m'
 white='\e[97m'
 
