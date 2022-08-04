@@ -2,10 +2,17 @@
 #
 # team sl0ppyr00t linux issue fixer 
 # author : x0xr00t
+
 if (( $EUID != 0 )); then
     echo "Please run as root"
     exit
 fi
+
+red='\e[31m'
+green='\e[32m'
+lgreen='\e[92m'
+yellow='\e[33m'
+white='\e[97m'
 
 
 fixapt="apt clean & apt --fix-missing -y"
@@ -16,24 +23,6 @@ fixmissing="apt update --fix-missing -y"
 apply="apt update -y"
 upgrade="apt full-upgrade -y"
 downgrade="apt clean & apt --fix-broken install -y & apt full-upgrade --allow-downgrades -y"
-
-red='\e[31m'
-lred='\e[91m'
-green='\e[32m'
-lgreen='\e[92m'
-yellow='\e[33m'
-lyellow='\e[93m'
-blue='\e[34m'
-lblue='\e[94m'
-magenta='\e[35m'
-lmagenta='\e[95m'
-cyan='\e[36m'
-lcyan='\e[96m'
-grey='\e[90m'
-lgrey='\e[37m'
-white='\e[97m'
-black='\e[30m'
-
 
 echo -e $red ""
 echo "  ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓"
@@ -53,7 +42,7 @@ echo ".%%%%....%%%%%%..%%........%%....%%%%......%%......%%..."
 echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
 echo ".%%..%%..%%..%%..%%%%%%..%%%%%%..%%......%%%%%%..%%..%%."
 echo "........................................................"
-echo -e $white""
+echo -e $white ""
 
 a='Please enter your choice: '
 options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Quit")
