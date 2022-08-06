@@ -20,7 +20,7 @@ fixbroken="apt update --fix-broken install -y"
 fixmissing="apt update --fix-missing -y"
 apply="apt update -y"
 upgrade="apt full-upgrade -y"
-downgrade="apt clean & apt --fix-broken install -y & apt full-upgrade --allow-downgrades -y"
+downgrade="apt clean & apt full-upgrade --allow-downgrades -y"
 
 echo -e $red ""
 echo "  ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓"
