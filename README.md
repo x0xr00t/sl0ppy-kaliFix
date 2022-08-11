@@ -19,7 +19,7 @@ A small fixer for common kali update|upgrade issues.This tool fixes most of the 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
 
 # For depracated depency issues 
-* I advice to run cheksum fix, to sort the issues...  
+* I advice to run cheksum fix, to sort these issues...  
 
 # Install 
 * `chmod +x install`
