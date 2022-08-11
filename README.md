@@ -1,6 +1,9 @@
 # sl0ppy-Kalifix
 A small fixer for common linux|kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
+# Version
+* v0.3 
+
 # fixes issues 
 * apt issues
 * dpkg issues
@@ -9,7 +12,8 @@ A small fixer for common linux|kali update|upgrade issues.This tool fixes most o
 * missing install files issues 
 
 # extra functionality
-* downgrade 
+* Downgrade Functionality 
+* Apt Auto Remove Functionality
 
 # note: 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
