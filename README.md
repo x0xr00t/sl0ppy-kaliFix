@@ -4,18 +4,18 @@ A small fixer for common kali update|upgrade issues.This tool fixes most of the 
 # Version
 * v0.3 
 
-# fixes issues 
+# Fixes Issues 
 * apt issues
 * dpkg issues
 * checksum issues 
 * broken install issues
 * missing install files issues 
 
-# extra functionality
+# Extra Functionality
 * Downgrade Functionality 
 * Apt Auto Remove Functionality
 
-# note: 
+# Side Note: 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
 
 # For depracated depency issues 
