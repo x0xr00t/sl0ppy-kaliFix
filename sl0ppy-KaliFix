@@ -12,6 +12,8 @@ red='\e[31m'
 yellow='\e[33m'
 white='\e[97m'
 
+auth="P.Hoogeveen"
+AKA="x0xr00t"
 
 fixapt="apt clean & apt --fix-missing -y"
 fixdpkg="apt clean & dpkg --configure -a & apt install -f"
@@ -34,6 +36,7 @@ echo "░ ░▒  ░ ░░ ░ ▒  ░  ░ ▒ ▒░ ░▒ ░     ░▒ 
 echo "░  ░  ░    ░ ░   ░ ░ ░ ▒  ░░       ░░       ▒ ▒ ░░    ░░   ░ ░ ░ ░ ▒  ░ ░ ░ ▒    ░      "     
 echo "      ░      ░  ░    ░ ░                    ░ ░        ░         ░ ░      ░ ░           "       
 echo "                                            ░ ░                                         "
+echo -e " $white Author:$red $Auth $white $white AKA:$red $AKA"
 echo -e $yellow""
 echo ".%%..%%...%%%%...%%......%%%%%%..%%%%%%..%%%%%%..%%..%%."
 echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
@@ -94,12 +97,12 @@ do
             $fixdpkg
             ;;
         "Apt Fix With Downgrade")
-            echo " {sl0p} We Gonna Fix Ur APT Issues with downgrade."
+            echo " {sl0p} We Gonna Fix Ur APT Issues With Downgrade."
             sleep 3
             $downgrade
             ;;
         "Apt Auto Remove")
-            echo " {sl0p} We Gonna Fix Ur APT Issues with downgrade."
+            echo " {sl0p} We Gonna Auto Remove Things."
             sleep 3
             $remove
             ;;            
