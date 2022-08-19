@@ -17,7 +17,7 @@ AKA="x0xr00t"
 
 fixapt="apt clean & apt --fix-missing -y"
 fixdpkg="apt clean & dpkg --configure -a & apt install -f"
-fixchsum='echo "deb http://http.kali.org/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
+fixchsum='echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
 fixbroken="apt update --fix-broken install -y"
 fixmissing="apt update --fix-missing -y"
 apply="apt update -y"
