@@ -18,8 +18,11 @@ A small fixer for common kali update|upgrade issues.This tool fixes most of the 
 # Side Note: 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
 
-# For depracated depency issues 
+# For Depracated Depency Issues 
 * I advice to run cheksum fix, to sort these issues...  
+
+# For File Size To Large, Wait On Sync... 
+* I advice to use option 4 
 
 # Install 
 * `chmod +x install`
