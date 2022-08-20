@@ -2,7 +2,7 @@
 A small fixer for common kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
 # Version
-* v0.3 
+* v0.4
 
 # Fixes Issues 
 * apt issues
