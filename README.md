@@ -2,7 +2,7 @@
 A small fixer for common kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
 # Version
-* v0.4
+* v0.5
 
 # Side Note: 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
@@ -17,7 +17,7 @@ this not fixes all issues, just most common issues for updating/upgrading issues
 # Extra Functionality
 * Downgrade Functionality 
 * Apt Auto Remove Functionality
-
+* Restore original kali deb 
 
 # For Depracated Depency Issues 
 * I advice to run cheksum fix, to sort these issues...  
