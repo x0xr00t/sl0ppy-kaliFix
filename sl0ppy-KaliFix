@@ -56,30 +56,33 @@ do
             echo " {sl0p} We Gonna Fix Ur APT Issues"
             sleep 3
             $fixapt
+            echo " {sl0p} Applying Settings..."
             sleep 2 
-            echo " {sl0p} Applying Settings..." 
             $apply
             echo " {sl0p} We Gonna Upgrade Now. "
+            sleep 2 
             $upgrade
             ;;
         "APT Broken Install Fix")
             echo " {sl0p} We Gonna Fix Ur Broken Install Issues"
             sleep 3
             $fixbroken
+            echo " {sl0p} Applying Settings..."
             sleep 2 
-            echo " {sl0p} Applying Settings..." 
             $apply
             echo " {sl0p} We Gonna Upgrade Now. "
+            sleep 2 
             $upgrade
             ;;
         "APT Missing Fix")
             echo " {sl0p} We Gonna Fix Ur Broken Install Issues"
             sleep 3
             $fixmissing
-            sleep 2 
-            echo " {sl0p} Applying Settings..." 
+            echo " {sl0p} Applying Settings..."
+            sleep 2
             $apply
             echo " {sl0p} We Gonna Upgrade Now. "
+            sleep 2 
             $upgrade
             ;;            
         "CheckSum Fix")
@@ -87,19 +90,22 @@ do
             sleep 3
             $fixchsum
             sleep 2 
-            echo " {sl0p} Applying Settings..." 
+            echo " {sl0p} Applying Settings..."
+            sleep 2 
             $apply
             echo " {sl0p} We Gonna Upgrade Now. "
+            sleep 2 
             $upgrade
             ;;            
         "DPKG Issue Fix")
             echo " {sl0p} We Gonna Fix Ur DPKG Issues"
             sleep 3
             $fixdpkg
+            echo " {sl0p} Applying Settings..."
             sleep 2 
-            echo " {sl0p} Applying Settings..." 
             $apply
             echo " {sl0p} We Gonna Upgrade Now. "
+            sleep 2 
             $upgrade
             ;;
         "Apt Fix With Downgrade")
@@ -118,10 +124,11 @@ do
             echo " {sl0p} We Gonna Auto Restore Things."
             sleep 3
             $restore
+            echo " {sl0p} Applying Settings..."
             sleep 2 
-            echo " {sl0p} Applying Settings..." 
             $apply
             echo " {sl0p} We Gonna Upgrade Now. "
+            sleep 2 
             $upgrade
             ;;         
         "Quit")
