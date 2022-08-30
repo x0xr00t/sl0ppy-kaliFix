@@ -96,6 +96,11 @@ do
             echo " {sl0p} We Gonna Fix Ur DPKG Issues"
             sleep 3
             $fixdpkg
+            sleep 2 
+            echo " {sl0p} Applying Settings..." 
+            $apply
+            echo " {sl0p} We Gonna Upgrade Now. "
+            $upgrade
             ;;
         "Apt Fix With Downgrade")
             echo " {sl0p} We Gonna Fix Ur APT Issues With Downgrade."
@@ -106,11 +111,18 @@ do
             echo " {sl0p} We Gonna Auto Remove Things."
             sleep 3
             $remove
+            sleep 2 
+            $update
             ;;    
         "Restore Original kali repo")
             echo " {sl0p} We Gonna Auto Restore Things."
             sleep 3
             $restore
+            sleep 2 
+            echo " {sl0p} Applying Settings..." 
+            $apply
+            echo " {sl0p} We Gonna Upgrade Now. "
+            $upgrade
             ;;         
         "Quit")
             break
