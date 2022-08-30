@@ -24,6 +24,7 @@ apply="apt update -y"
 upgrade="apt full-upgrade -y"
 downgrade="apt clean & apt full-upgrade --allow-downgrades -y"
 remove="apt autoremove -y"
+restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list'
 
 echo -e $red ""
 echo "  ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓"
@@ -105,7 +106,12 @@ do
             echo " {sl0p} We Gonna Auto Remove Things."
             sleep 3
             $remove
-            ;;            
+            ;;    
+        "Restore Original kali repo")
+            echo " {sl0p} We Gonna Auto Restore Things."
+            sleep 3
+            $restore
+            ;;         
         "Quit")
             break
             ;;
