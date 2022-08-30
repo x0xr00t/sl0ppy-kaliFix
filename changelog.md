@@ -1,8 +1,8 @@
 # ChangeLog
-Sl0ppy-KaliFixv0.4 rolled out.
+Sl0ppy-KaliFixv0.5 rolled out.
 
 # Added Functionality
-* changed the main kali repo to non kali owned repo fixing halted updates that wait on sync
+* added restore for orginal kali repo, for once the updates or new release has been pushed.
  
 
 
