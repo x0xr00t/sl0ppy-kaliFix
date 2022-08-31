@@ -48,7 +48,7 @@ echo "........................................................"
 echo -e $white ""
 
 a='Please enter your choice: '
-options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Quit")
+options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
