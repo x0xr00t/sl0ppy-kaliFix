@@ -87,8 +87,10 @@ do
             $upgrade
             ;;
         "Apt File")
-            echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
+            echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues By Purging The APT File"
             sleep 3
+            echo " {sl0ppy Notifycations !} Thanks Martijn Kamminga :D"
+            sleep 2 
             $aptfile
             sleep 2 
             echo " {sl0p} Applying Settings..."
