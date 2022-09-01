@@ -2,22 +2,26 @@
 A small fixer for common kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
 # Version
-* v0.5
+* v0.6
 
 # Side Note: 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
 
 # Fixes Issues 
-* apt issues
-* dpkg issues
-* checksum issues 
-* broken install issues
-* missing install files issues 
+* APT Issues
+* APT File 
+* DPKG Issues
+* CheckSum Issues 
+* Broken Install Issues
+* Missing Install Files Issues 
+
+`I want to thank Martijn Kamminga, he requested APT-file purge to be added.` 
+`Thanks sir `
 
 # Extra Functionality
 * Downgrade Functionality 
 * Apt Auto Remove Functionality
-* Restore original kali deb 
+* Restore Original Kali DEB 
 
 # For Depracated Depency Issues 
 * I advice to run cheksum fix, to sort these issues...  
