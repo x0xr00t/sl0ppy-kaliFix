@@ -16,6 +16,7 @@ auth="P.Hoogeveen"
 AKA="x0xr00t"
 
 fixapt="apt clean & apt --fix-missing -y"
+aptfile="apt-get purge apt-file"
 fixdpkg="apt clean & dpkg --configure -a & apt install -f"
 fixchsum='echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
 fixbroken="apt update --fix-broken install -y"
@@ -48,7 +49,7 @@ echo "........................................................"
 echo -e $white ""
 
 a='Please enter your choice: '
-options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Quit")
+options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -84,7 +85,16 @@ do
             echo " {sl0p} We Gonna Upgrade Now. "
             sleep 2 
             $upgrade
-            ;;            
+            ;;
+        "Apt File")
+            echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
+            sleep 3
+            $aptfile
+            sleep 2 
+            echo " {sl0p} Applying Settings..."
+            sleep 2 
+            $apply
+            ;; 
         "CheckSum Fix")
             echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
             sleep 3
@@ -96,7 +106,7 @@ do
             echo " {sl0p} We Gonna Upgrade Now. "
             sleep 2 
             $upgrade
-            ;;            
+            ;;
         "DPKG Issue Fix")
             echo " {sl0p} We Gonna Fix Ur DPKG Issues"
             sleep 3
