@@ -9,7 +9,7 @@ this not fixes all issues, just most common issues for updating/upgrading issues
 
 # Fixes Issues 
 * APT Issues
-* APT File 
+* APT Purge File 
 * DPKG Issues
 * CheckSum Issues 
 * Broken Install Issues
