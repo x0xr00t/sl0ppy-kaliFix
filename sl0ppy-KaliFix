@@ -26,6 +26,7 @@ upgrade="apt full-upgrade -y"
 downgrade="apt clean & apt full-upgrade --allow-downgrades -y"
 remove="apt autoremove -y"
 restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list'
+allinstall="apt install kali-linux-everything -y"
 
 echo -e $red ""
 echo "  ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓"
@@ -46,10 +47,11 @@ echo ".%%%%....%%%%%%..%%........%%....%%%%......%%......%%..."
 echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
 echo ".%%..%%..%%..%%..%%%%%%..%%%%%%..%%......%%%%%%..%%..%%."
 echo "........................................................"
+echo -e $red "{!} GIFT: Added installer for every kali tool"
 echo -e $white ""
 
 a='Please enter your choice: '
-options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Quit")
+options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Every Kali Tool Install" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -142,7 +144,12 @@ do
             echo " {sl0p} We Gonna Upgrade Now. "
             sleep 2 
             $upgrade
-            ;;         
+            ;;   
+        "Every Kali Tool Install")
+            echo " {sl0p} We Gonna Auto Restore Things."
+            sleep 3
+            $alltools
+            ;;              
         "Quit")
             break
             ;;
