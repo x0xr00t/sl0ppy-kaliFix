@@ -23,6 +23,8 @@ this not fixes all issues, just most common issues for updating/upgrading issues
 * Apt Auto Remove Functionality
 * Restore Original Kali DEB 
 
+* {!} New option >> Install option to install every possible kali tool 
+
 # For Depracated Depency Issues 
 * I advice to run cheksum fix, to sort these issues...  
 
