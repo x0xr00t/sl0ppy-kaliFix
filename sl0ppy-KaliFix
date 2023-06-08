@@ -26,6 +26,7 @@ upgrade="apt full-upgrade -y"
 downgrade="apt clean & apt full-upgrade --allow-downgrades -y"
 remove="apt autoremove -y"
 restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list'
+alltools="apt install kali-linux-everything -y "
 
 echo -e $red ""
 echo "  ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓"
@@ -49,7 +50,7 @@ echo "........................................................"
 echo -e $white ""
 
 a='Please enter your choice: '
-options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Quit")
+options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Fix" "Install All Kali Tools" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -120,6 +121,11 @@ do
             sleep 2 
             $upgrade
             ;;
+        "Install All Kali Tools")
+            echo " {sl0p} We Gonna Auto Install Things."
+            sleep 3
+            $alltools
+            ;; 
         "Apt Fix With Downgrade")
             echo " {sl0p} We Gonna Fix Ur APT Issues With Downgrade."
             sleep 3
