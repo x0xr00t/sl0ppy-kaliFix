@@ -1,159 +1,164 @@
 #!/bin/bash
 #
-# team sl0ppyr00t linux issue fixer 
-# author : x0xr00t
+# Team sl0ppyr00t Linux Issue Fixer
+# Author: x0xr00t
 
 if (( $EUID != 0 )); then
-    echo "Please run as root"
+    echo -e "\e[91mPlease run as root\e[0m"
     exit
 fi
 
-red='\e[31m'
-yellow='\e[33m'
+red='\e[91m'
+yellow='\e[93m'
 white='\e[97m'
 
 auth="P.Hoogeveen"
 AKA="x0xr00t"
 
-fixapt="apt clean & apt --fix-missing -y"
+fixapt="apt clean && apt --fix-missing -y"
 aptfile="apt-get purge apt-file"
-fixdpkg="apt clean & dpkg --configure -a & apt install -f"
+fixdpkg="apt clean && dpkg --configure -a && apt install -f"
 fixchsum='echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
 fixbroken="apt update --fix-broken install -y"
 fixmissing="apt update --fix-missing -y"
 apply="apt update -y"
 upgrade="apt full-upgrade -y"
-downgrade="apt clean & apt full-upgrade --allow-downgrades -y"
+downgrade="apt clean && apt full-upgrade --allow-downgrades -y"
 remove="apt autoremove -y"
 restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list'
 allinstall="apt install kali-linux-everything -y"
 
-echo -e $red ""
-echo "  ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓"
-echo "▒██    ▒ ▓██▒    ▒██▒  ██▒▓██░  ██▒▓██░  ██▒▒██  ██▒▓██ ▒ ██▒▒██▒  ██▒▒██▒  ██▒▓  ██▒ ▓▒"
-echo "░ ▓██▄   ▒██░    ▒██░  ██▒▓██░ ██▓▒▓██░ ██▓▒ ▒██ ██░▓██ ░▄█ ▒▒██░  ██▒▒██░  ██▒▒ ▓██░ ▒░"
-echo "  ▒   ██▒▒██░    ▒██   ██░▒██▄█▓▒ ▒▒██▄█▓▒ ▒ ░ ▐██▓░▒██▀▀█▄  ▒██   ██░▒██   ██░░ ▓██▓ ░ "
-echo "▒██████▒▒░██████▒░ ████▓▒░▒██▒ ░  ░▒██▒ ░  ░ ░ ██▒▓░░██▓ ▒██▒░ ████▓▒░░ ████▓▒░  ▒██▒ ░ " 
-echo "▒ ▒▓▒ ▒ ░░ ▒░▓  ░░ ▒░▒░▒░ ▒▓▒░ ░  ░▒▓▒░ ░  ░  ██▒▒▒ ░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░ ▒░▒░▒░   ▒ ░░   "   
-echo "░ ░▒  ░ ░░ ░ ▒  ░  ░ ▒ ▒░ ░▒ ░     ░▒ ░     ▓██ ░▒░   ░▒ ░ ▒░  ░ ▒ ▒░   ░ ▒ ▒░     ░    "    
-echo "░  ░  ░    ░ ░   ░ ░ ░ ▒  ░░       ░░       ▒ ▒ ░░    ░░   ░ ░ ░ ░ ▒  ░ ░ ░ ▒    ░      "     
-echo "      ░      ░  ░    ░ ░                    ░ ░        ░         ░ ░      ░ ░           "       
-echo "                                            ░ ░                                         "
-echo -e " $white Author:$red $Auth $white $white AKA:$red $AKA"
-echo -e $yellow""
-echo ".%%..%%...%%%%...%%......%%%%%%..%%%%%%..%%%%%%..%%..%%."
-echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
-echo ".%%%%....%%%%%%..%%........%%....%%%%......%%......%%..."
-echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
-echo ".%%..%%..%%..%%..%%%%%%..%%%%%%..%%......%%%%%%..%%..%%."
-echo "........................................................"
-echo -e $red "{!} GIFT: Added installer for every kali tool"
-echo -e $white ""
+menu() {
+    clear
+    echo -e "$red"
+    cat << "EOF"
+  ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓
+▒██    ▒ ▓██▒    ▒██▒  ██▒▓██░  ██▒▓██░  ██▒▒██  ██▒▓██ ▒ ██▒▒██▒  ██▒▒██▒  ██▒▓  ██▒ ▓▒
+░ ▓██▄   ▒██░    ▒██░  ██▒▓██░ ██▓▒▓██░ ██▓▒ ▒██ ██░▓██ ░▄█ ▒▒██░  ██▒▒██░  ██▒▒ ▓██░ ▒░
+  ▒   ██▒▒██░    ▒██   ██░▒██▄█▓▒ ▒▒██▄█▓▒ ▒ ░ ▐██▓░▒██▀▀█▄  ▒██   ██░▒██   ██░░ ▓██▓ ░
+▒██████▒▒░██████▒░ ████▓▒░▒██▒ ░  ░▒██▒ ░  ░ ░ ██▒▓░░██▓ ▒██▒░ ████▓▒░░ ████▓▒░  ▒██▒ ░
+▒ ▒▓▒ ▒ ░░ ▒░▓  ░░ ▒░▒░▒░ ▒▓▒░ ░  ░▒▓▒░ ░  ░  ██▒▒▒ ░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░ ▒░▒░▒░   ▒ ░░
+░ ░▒  ░ ░░ ░ ▒  ░  ░ ▒ ▒░ ░▒ ░     ░▒ ░     ▓██ ░▒░   ░▒ ░ ▒░  ░ ▒ ▒░   ░ ▒ ▒░     ░
+░  ░  ░    ░ ░   ░ ░ ░ ▒  ░░       ░░       ▒ ▒ ░░    ░░   ░ ░ ░ ░ ▒  ░ ░ ░ ▒    ░
+      ░      ░  ░    ░ ░                    ░ ░         ░         ░ ░      ░ ░
+                                            ░ ░
+EOF
+    echo -e "$white Author: $red$auth $white AKA: $red$AKA"
+    echo -e "$yellow"
+    echo ".%%..%%...%%%%...%%......%%%%%%..%%%%%%..%%%%%%..%%..%%."
+    echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
+    echo ".%%%%....%%%%%%..%%........%%....%%%%......%%......%%..."
+    echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
+    echo ".%%..%%..%%..%%..%%%%%%..%%%%%%..%%......%%%%%%..%%..%%."
+    echo "........................................................"
+    echo -e "$red{!} GIFT: Added installer for every Kali tool"
+    echo -e "$white"
 
-a='Please enter your choice: '
-options=("APT Fix" "APT Broken Install Fix"  "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original kali repo" "Every Kali Tool Install" "Quit")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "APT Fix")
-            echo " {sl0p} We Gonna Fix Ur APT Issues"
-            sleep 3
-            $fixapt
-            echo " {sl0p} Applying Settings..."
-            sleep 2 
-            $apply
-            echo " {sl0p} We Gonna Upgrade Now. "
-            sleep 2 
-            $upgrade
-            ;;
-        "APT Broken Install Fix")
-            echo " {sl0p} We Gonna Fix Ur Broken Install Issues"
-            sleep 3
-            $fixbroken
-            echo " {sl0p} Applying Settings..."
-            sleep 2 
-            $apply
-            echo " {sl0p} We Gonna Upgrade Now. "
-            sleep 2 
-            $upgrade
-            ;;
-        "APT Missing Fix")
-            echo " {sl0p} We Gonna Fix Ur Broken Install Issues"
-            sleep 3
-            $fixmissing
-            echo " {sl0p} Applying Settings..."
-            sleep 2
-            $apply
-            echo " {sl0p} We Gonna Upgrade Now. "
-            sleep 2 
-            $upgrade
-            ;;
-        "Apt File")
-            echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues By Purging The APT File"
-            sleep 3
-            echo " {sl0ppy Notifycations !} Thanks Martijn Kamminga :D"
-            sleep 2 
-            $aptfile
-            sleep 2 
-            echo " {sl0p} Applying Settings..."
-            sleep 2 
-            $apply
-            ;; 
-        "CheckSum Fix")
-            echo " {sl0p} We Gonna Fix Ur APT CheckSUm Issues"
-            sleep 3
-            $fixchsum
-            sleep 2 
-            echo " {sl0p} Applying Settings..."
-            sleep 2 
-            $apply
-            echo " {sl0p} We Gonna Upgrade Now. "
-            sleep 2 
-            $upgrade
-            ;;
-        "DPKG Issue Fix")
-            echo " {sl0p} We Gonna Fix Ur DPKG Issues"
-            sleep 3
-            $fixdpkg
-            echo " {sl0p} Applying Settings..."
-            sleep 2 
-            $apply
-            echo " {sl0p} We Gonna Upgrade Now. "
-            sleep 2 
-            $upgrade
-            ;;
-        "Apt Fix With Downgrade")
-            echo " {sl0p} We Gonna Fix Ur APT Issues With Downgrade."
-            sleep 3
-            $downgrade
-            ;;
-        "Apt Auto Remove")
-            echo " {sl0p} We Gonna Auto Remove Things."
-            sleep 3
-            $remove
-            sleep 2 
-            $update
-            ;;    
-        "Restore Original kali repo")
-            echo " {sl0p} We Gonna Auto Restore Things."
-            sleep 3
-            $restore
-            echo " {sl0p} Applying Settings..."
-            sleep 2 
-            $apply
-            echo " {sl0p} We Gonna Upgrade Now. "
-            sleep 2 
-            $upgrade
-            ;;   
-        "Every Kali Tool Install")
-            echo " {sl0p} We Gonna Auto Restore Things."
-            sleep 3
-            $alltools
-            ;;              
-        "Quit")
-            break
-            ;;
-        *) echo " {sl0p} invalid option $REPLY";;
-    esac
-done
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "APT Fix")
+                echo -e "$yellow{sl0p} We're Going to Fix Your APT Issues"
+                sleep 3
+                $fixapt
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2 
+                $apply
+                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                sleep 2 
+                $upgrade
+                ;;
+            "APT Broken Install Fix")
+                echo -e "$yellow{sl0p} We're Going to Fix Your Broken Install Issues"
+                sleep 3
+                $fixbroken
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2 
+                $apply
+                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                sleep 2 
+                $upgrade
+                ;;
+            "APT Missing Fix")
+                echo -e "$yellow{sl0p} We're Going to Fix Your Missing Dependencies"
+                sleep 3
+                $fixmissing
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2
+                $apply
+                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                sleep 2 
+                $upgrade
+                ;;
+            "Apt File")
+                echo -e "$yellow{sl0p} We're Going to Fix Your APT Checksum Issues by Purging Apt File"
+                sleep 3
+                echo -e "$yellow{sl0ppy Notifications!} Thanks Martijn Kamminga :D"
+                sleep 2 
+                $aptfile
+                sleep 2 
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2 
+                $apply
+                ;; 
+            "CheckSum Fix")
+                echo -e "$yellow{sl0p} We're Going to Fix Your APT Checksum Issues"
+                sleep 3
+                $fixchsum
+                sleep 2 
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2 
+                $apply
+                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                sleep 2 
+                $upgrade
+                ;;
+            "DPKG Issue Fix")
+                echo -e "$yellow{sl0p} We're Going to Fix Your DPKG Issues"
+                sleep 3
+                $fixdpkg
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2 
+                $apply
+                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                sleep 2 
+                $upgrade
+                ;;
+            "Apt Fix With Downgrade")
+                echo -e "$yellow{sl0p} We're Going to Fix Your APT Issues With Downgrade."
+                sleep 3
+                $downgrade
+                ;;
+            "Apt Auto Remove")
+                echo -e "$yellow{sl0p} We're Going to Auto Remove Unused Packages."
+                sleep 3
+                $remove
+                sleep 2 
+                $update
+                ;;    
+            "Restore Original Kali repo")
+                echo -e "$yellow{sl0p} We're Going to Restore Original Kali Repositories."
+                sleep 3
+                $restore
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2 
+                $apply
+                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                sleep 2 
+                $upgrade
+                ;;   
+            "Every Kali Tool Install")
+                echo -e "$yellow{sl0p} We're Going to Install Every Kali Tool."
+                sleep 3
+                $allinstall
+                ;;              
+            "Quit")
+                break
+                ;;
+            *) echo -e "$yellow{sl0p} Invalid option $REPLY";;
+        esac
+    done
+}
 
+options=("APT Fix" "APT Broken Install Fix" "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Issue Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original Kali repo" "Every Kali Tool Install" "Quit")
+menu
