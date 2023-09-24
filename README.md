@@ -1,9 +1,8 @@
 # sl0ppy-Kalifix
 A small fixer for common kali update|upgrade issues.This tool fixes most of the common issues on kali|deb.. It has a downgrade option for if needed. 
 
-# Version
-* v0.6 
-* version 0.7 soon to come, changing sum of the banner menu stuff and roll it out as v0.7 with a new option to install every possible kali tools. 
+# Version 
+* v0.7
 
 # Side Note: 
 this not fixes all issues, just most common issues for updating/upgrading issues.!!
