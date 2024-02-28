@@ -58,40 +58,40 @@ EOF
     do
         case $opt in
             "APT Fix")
-                echo -e "$yellow{sl0p} We're Going to Fix Your APT Issues"
+                echo -e "$yellow{sl0p} Fixing APT Issues..."
                 sleep 3
                 $fixapt
                 echo -e "$yellow{sl0p} Applying Settings..."
                 sleep 2 
                 $apply
-                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                echo -e "$yellow{sl0p} Upgrading Packages..."
                 sleep 2 
                 $upgrade
                 ;;
             "APT Broken Install Fix")
-                echo -e "$yellow{sl0p} We're Going to Fix Your Broken Install Issues"
+                echo -e "$yellow{sl0p} Fixing Broken Install Issues..."
                 sleep 3
                 $fixbroken
                 echo -e "$yellow{sl0p} Applying Settings..."
                 sleep 2 
                 $apply
-                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                echo -e "$yellow{sl0p} Upgrading Packages..."
                 sleep 2 
                 $upgrade
                 ;;
             "APT Missing Fix")
-                echo -e "$yellow{sl0p} We're Going to Fix Your Missing Dependencies"
+                echo -e "$yellow{sl0p} Fixing Missing Dependencies..."
                 sleep 3
                 $fixmissing
                 echo -e "$yellow{sl0p} Applying Settings..."
                 sleep 2
                 $apply
-                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                echo -e "$yellow{sl0p} Upgrading Packages..."
                 sleep 2 
                 $upgrade
                 ;;
             "Apt File")
-                echo -e "$yellow{sl0p} We're Going to Fix Your APT Checksum Issues by Purging Apt File"
+                echo -e "$yellow{sl0p} Fixing APT Checksum Issues..."
                 sleep 3
                 echo -e "$yellow{sl0ppy Notifications!} Thanks Martijn Kamminga :D"
                 sleep 2 
@@ -102,53 +102,53 @@ EOF
                 $apply
                 ;; 
             "CheckSum Fix")
-                echo -e "$yellow{sl0p} We're Going to Fix Your APT Checksum Issues"
+                echo -e "$yellow{sl0p} Fixing APT Checksum Issues..."
                 sleep 3
                 $fixchsum
                 sleep 2 
                 echo -e "$yellow{sl0p} Applying Settings..."
                 sleep 2 
                 $apply
-                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                echo -e "$yellow{sl0p} Upgrading Packages..."
                 sleep 2 
                 $upgrade
                 ;;
             "DPKG Issue Fix")
-                echo -e "$yellow{sl0p} We're Going to Fix Your DPKG Issues"
+                echo -e "$yellow{sl0p} Fixing DPKG Issues..."
                 sleep 3
                 $fixdpkg
                 echo -e "$yellow{sl0p} Applying Settings..."
                 sleep 2 
                 $apply
-                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                echo -e "$yellow{sl0p} Upgrading Packages..."
                 sleep 2 
                 $upgrade
                 ;;
             "Apt Fix With Downgrade")
-                echo -e "$yellow{sl0p} We're Going to Fix Your APT Issues With Downgrade."
+                echo -e "$yellow{sl0p} Fixing APT Issues With Downgrade..."
                 sleep 3
                 $downgrade
                 ;;
             "Apt Auto Remove")
-                echo -e "$yellow{sl0p} We're Going to Auto Remove Unused Packages."
+                echo -e "$yellow{sl0p} Auto Removing Unused Packages..."
                 sleep 3
                 $remove
                 sleep 2 
                 $update
                 ;;    
             "Restore Original Kali repo")
-                echo -e "$yellow{sl0p} We're Going to Restore Original Kali Repositories."
+                echo -e "$yellow{sl0p} Restoring Original Kali Repositories..."
                 sleep 3
                 $restore
                 echo -e "$yellow{sl0p} Applying Settings..."
                 sleep 2 
                 $apply
-                echo -e "$yellow{sl0p} We're Going to Upgrade Now."
+                echo -e "$yellow{sl0p} Upgrading Packages..."
                 sleep 2 
                 $upgrade
                 ;;   
             "Every Kali Tool Install")
-                echo -e "$yellow{sl0p} We're Going to Install Every Kali Tool."
+                echo -e "$yellow{sl0p} Installing Every Kali Tool..."
                 sleep 3
                 $allinstall
                 ;;              
