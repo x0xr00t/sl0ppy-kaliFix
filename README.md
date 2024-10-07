@@ -51,47 +51,46 @@ Issues Fixed:
         Installs all available Kali tools (kali-linux-everything), ensuring the system has a complete toolkit for penetration testing and security tasks.
 
 
-Here’s a summary of what the enhanced script does, what issues it fixes, and the new additions:
-Issues Fixed:
+# Here’s a summary of what the enhanced script does, what issues it fixes, and the new additions:
 
-    APT Issues:
+ *   APT Issues:
         Fixes missing packages, dependency errors, and broken installations.
         Automatically updates and upgrades packages.
 
-    Broken Installations:
+ *   Broken Installations:
         Resolves packages stuck in installation, removing broken ones and restoring correct versions.
 
-    Missing Dependencies:
+ *   Missing Dependencies:
         Handles missing dependencies in apt package management and repairs system integrity.
 
-    APT File Problems:
+ *   APT File Problems:
         Fixes issues with the apt-file tool (used to search for files in packages), purges and reinstalls it.
 
-    Checksum Errors:
+ *   Checksum Errors:
         Repairs checksum problems by switching to a reliable Kali mirror (NCTU mirror or fallback).
 
-    DPKG Issues:
+  *  DPKG Issues:
         Fixes dpkg configuration problems and forces the reinstallation of damaged packages.
 
-    Downgrading:
+ *   Downgrading:
         Checks for potential downgrades and applies them safely (for packages that might have upgraded incompatibly).
 
-    Kernel Issues:
+ *   Kernel Issues:
         Helps resolve kernel version mismatches by removing old kernel versions and installing the newest available one.
 
-    GRUB Bootloader Issues:
+ *   GRUB Bootloader Issues:
         Reinstalls and updates the GRUB bootloader after kernel updates or system changes.
 
-    System Cleanup:
+ *   System Cleanup:
         Removes unnecessary packages and files using apt autoremove and apt clean, freeing up space and improving performance.
 
-    System Health Check:
+ *   System Health Check:
         Audits the system for package issues and fixes broken dependencies, performing overall system maintenance.
 
-    Repository Fix:
+ *   Repository Fix:
         Restores the original Kali Linux repository configuration if the system's /etc/apt/sources.list file is corrupted.
 
-    Comprehensive Installation:
+ *   Comprehensive Installation:
         Installs all available Kali tools (kali-linux-everything), ensuring the system has a complete toolkit for penetration testing and security tasks.
 
 # New Additions:
