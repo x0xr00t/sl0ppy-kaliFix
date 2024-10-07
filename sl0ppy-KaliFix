@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Team sl0ppyr00t Linux Issue Fixer
+# Team sl0ppyr00t Kali Issue Fixer
 # Author: x0xr00t
 
 if (( $EUID != 0 )); then
