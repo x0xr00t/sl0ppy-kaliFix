@@ -16,7 +16,7 @@ auth="P.Hoogeveen"
 AKA="x0xr00t"
 
 fixapt="apt clean && apt --fix-missing -y"
-aptfile="apt-get purge apt-file"
+aptfile="apt-get purge apt-file -y && apt-get install apt-file -y && apt-file update"
 fixdpkg="apt clean && dpkg --configure -a && apt install -f"
 fixchsum='echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
 fixbroken="apt update --fix-broken install -y"
@@ -27,6 +27,30 @@ downgrade="apt clean && apt full-upgrade --allow-downgrades -y"
 remove="apt autoremove -y"
 restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list'
 allinstall="apt install kali-linux-everything -y"
+updategrub="update-grub && grub-install /dev/sda"
+fixkernel="dpkg --list | grep linux-image && apt-get purge linux-image-OLD_VERSION && apt-get install linux-image-newest -y"
+healthcheck="dpkg --audit && apt --fix-broken install -y && apt autoremove -y && apt clean"
+
+# Function to check mirror availability
+check_mirror() {
+    if ping -c 1 kali.cs.nctu.edu.tw &>/dev/null; then
+        echo -e "$yellow{sl0p} Using NCTU mirror..."
+        echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" > /etc/apt/sources.list
+    else
+        echo -e "$red{sl0p} NCTU mirror not reachable. Restoring original source list."
+        restore
+    fi
+}
+
+# Function to check and perform downgrade only if needed
+checkdowngrade() {
+    if apt list --upgradable | grep downgrade &>/dev/null; then
+        echo -e "$yellow{sl0p} Downgrading packages..."
+        apt full-upgrade --allow-downgrades -y
+    else
+        echo -e "$yellow{sl0p} No downgrades needed."
+    fi
+}
 
 menu() {
     clear
@@ -91,10 +115,8 @@ EOF
                 $upgrade
                 ;;
             "Apt File")
-                echo -e "$yellow{sl0p} Fixing APT Checksum Issues..."
+                echo -e "$yellow{sl0p} Fixing APT File Issues..."
                 sleep 3
-                echo -e "$yellow{sl0ppy Notifications!} Thanks Martijn Kamminga :D"
-                sleep 2 
                 $aptfile
                 sleep 2 
                 echo -e "$yellow{sl0p} Applying Settings..."
@@ -104,7 +126,7 @@ EOF
             "CheckSum Fix")
                 echo -e "$yellow{sl0p} Fixing APT Checksum Issues..."
                 sleep 3
-                $fixchsum
+                check_mirror
                 sleep 2 
                 echo -e "$yellow{sl0p} Applying Settings..."
                 sleep 2 
@@ -127,14 +149,14 @@ EOF
             "Apt Fix With Downgrade")
                 echo -e "$yellow{sl0p} Fixing APT Issues With Downgrade..."
                 sleep 3
-                $downgrade
+                checkdowngrade
                 ;;
             "Apt Auto Remove")
                 echo -e "$yellow{sl0p} Auto Removing Unused Packages..."
                 sleep 3
                 $remove
                 sleep 2 
-                $update
+                $apply
                 ;;    
             "Restore Original Kali repo")
                 echo -e "$yellow{sl0p} Restoring Original Kali Repositories..."
@@ -146,19 +168,56 @@ EOF
                 echo -e "$yellow{sl0p} Upgrading Packages..."
                 sleep 2 
                 $upgrade
-                ;;   
-            "Every Kali Tool Install")
-                echo -e "$yellow{sl0p} Installing Every Kali Tool..."
+                ;;
+            "Install Every Kali Tool")
+                echo -e "$yellow{sl0p} Installing All Kali Tools..."
                 sleep 3
                 $allinstall
-                ;;              
-            "Quit")
+                sleep 2 
+                echo -e "$yellow{sl0p} Applying Settings..."
+                sleep 2 
+                $apply
+                ;;
+            "Kernel Fix")
+                echo -e "$yellow{sl0p} Fixing Kernel Issues..."
+                sleep 3
+                $fixkernel
+                ;;
+            "Update Grub")
+                echo -e "$yellow{sl0p} Updating GRUB..."
+                sleep 3
+                $updategrub
+                ;;
+            "System Health Check")
+                echo -e "$yellow{sl0p} Running System Health Check..."
+                sleep 3
+                $healthcheck
+                ;;
+            "Exit")
+                echo -e "$yellow{sl0p} Exiting Script."
                 break
                 ;;
-            *) echo -e "$yellow{sl0p} Invalid option $REPLY";;
+            *) echo -e "$red{sl0p} Invalid Option! Try again.";;
         esac
     done
 }
 
-options=("APT Fix" "APT Broken Install Fix" "APT Missing Fix" "Apt File" "CheckSum Fix" "DPKG Issue Fix" "Apt Fix With Downgrade" "Apt Auto Remove" "Restore Original Kali repo" "Every Kali Tool Install" "Quit")
+# Main Menu Options
+options=(
+    "APT Fix"
+    "APT Broken Install Fix"
+    "APT Missing Fix"
+    "Apt File"
+    "CheckSum Fix"
+    "DPKG Issue Fix"
+    "Apt Fix With Downgrade"
+    "Apt Auto Remove"
+    "Restore Original Kali repo"
+    "Install Every Kali Tool"
+    "Kernel Fix"
+    "Update Grub"
+    "System Health Check"
+    "Exit"
+)
+
 menu
