@@ -3,29 +3,33 @@
 # Team sl0ppyr00t Kali Issue Fixer
 # Author: x0xr00t
 
+# Check if running as root
 if (( $EUID != 0 )); then
     echo -e "\e[91mPlease run as root\e[0m"
     exit
 fi
 
+# Define color variables
 red='\e[91m'
 yellow='\e[93m'
 white='\e[97m'
+reset='\e[0m'
 
 auth="P.Hoogeveen"
 AKA="x0xr00t"
 
+# Define commands
 fixapt="apt clean && apt --fix-missing -y"
 aptfile="apt-get purge apt-file -y && apt-get install apt-file -y && apt-file update"
 fixdpkg="apt clean && dpkg --configure -a && apt install -f"
-fixchsum='echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" | sudo tee /etc/apt/sources.list'
+fixchsum='echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" > /etc/apt/sources.list'
 fixbroken="apt --fix-broken install -y && apt update"
 fixmissing="apt --fix-missing -y && apt update"
 apply="apt update -y"
 upgrade="apt full-upgrade -y"
 downgrade="apt clean && apt full-upgrade --allow-downgrades -y"
 remove="apt autoremove -y"
-restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list'
+restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list'
 allinstall="apt install kali-linux-everything -y"
 updategrub="update-grub && grub-install /dev/sda"
 fixkernel="dpkg --list | grep linux-image && apt-get purge linux-image-OLD_VERSION && apt-get install linux-image-newest -y"
@@ -34,27 +38,28 @@ healthcheck="dpkg --audit && apt --fix-broken install -y && apt autoremove -y &&
 # Function to check mirror availability
 check_mirror() {
     if ping -c 1 kali.cs.nctu.edu.tw &>/dev/null; then
-        echo -e "$yellow{sl0p} Using NCTU mirror..."
+        echo -e "${yellow}{sl0p} Using NCTU mirror...${reset}"
         echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" > /etc/apt/sources.list
     else
-        echo -e "$red{sl0p} NCTU mirror not reachable. Restoring original source list."
-        restore
+        echo -e "${red}{sl0p} NCTU mirror not reachable. Restoring original source list.${reset}"
+        eval $restore
     fi
 }
 
 # Function to check and perform downgrade only if needed
 checkdowngrade() {
     if apt list --upgradable | grep downgrade &>/dev/null; then
-        echo -e "$yellow{sl0p} Downgrading packages..."
-        apt full-upgrade --allow-downgrades -y
+        echo -e "${yellow}{sl0p} Downgrading packages...${reset}"
+        eval $downgrade
     else
-        echo -e "$yellow{sl0p} No downgrades needed."
+        echo -e "${yellow}{sl0p} No downgrades needed.${reset}"
     fi
 }
 
+# Menu function
 menu() {
     clear
-    echo -e "$red"
+    echo -e "${red}"
     cat << "EOF"
   ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓
 ▒██    ▒ ▓██▒    ▒██▒  ██▒▓██░  ██▒▓██░  ██▒▒██  ██▒▓██ ▒ ██▒▒██▒  ██▒▒██▒  ██▒▓  ██▒ ▓▒
@@ -67,137 +72,143 @@ menu() {
       ░      ░  ░    ░ ░                    ░ ░         ░         ░ ░      ░ ░
                                             ░ ░
 EOF
-    echo -e "$white Author: $red$auth $white AKA: $red$AKA"
     echo -e "$yellow"
     echo ".%%..%%...%%%%...%%......%%%%%%..%%%%%%..%%%%%%..%%..%%."
     echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
     echo ".%%%%....%%%%%%..%%........%%....%%%%......%%......%%..."
     echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
-    echo ".%%..%%..%%..%%..%%%%%%..%%%%%%..%%......%%%%%%..%%..%%."
+    echo ".%%..%%..%%..%%..%%%%%%..%%%%%%..%%......%%%%%%..%%..%%.{reset}"
     echo "........................................................"
-    echo -e "$red{!} GIFT: Added installer for every Kali tool"
-    echo -e "$white"
+    echo -e "${white}Author: ${red}$auth ${white}AKA: ${red}$AKA${reset}"
+    echo -e "${yellow}{!} GIFT: Added installer for every Kali tool${reset}"
+    echo -e "${yellow}"
 
-    select opt in "${options[@]}"
-    do
+    # Menu options
+    select opt in "${options[@]}"; do
         case $opt in
             "APT Fix")
-                echo -e "$yellow{sl0p} Fixing APT Issues..."
+                echo -e "${yellow}{sl0p} Fixing APT Issues...${reset}"
                 sleep 3
-                $fixapt
-                echo -e "$yellow{sl0p} Applying Settings..."
+                eval $fixapt
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2 
-                $apply
-                echo -e "$yellow{sl0p} Upgrading Packages..."
+                eval $apply
+                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
                 sleep 2 
-                $upgrade
+                eval $upgrade
                 ;;
             "APT Broken Install Fix")
-                echo -e "$yellow{sl0p} Fixing Broken Install Issues..."
+                echo -e "${yellow}{sl0p} Fixing Broken Install Issues...${reset}"
                 sleep 3
-                $fixbroken
-                echo -e "$yellow{sl0p} Applying Settings..."
+                eval $fixbroken
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2 
-                $apply
-                echo -e "$yellow{sl0p} Upgrading Packages..."
+                eval $apply
+                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
                 sleep 2 
-                $upgrade
+                eval $upgrade
                 ;;
             "APT Missing Fix")
-                echo -e "$yellow{sl0p} Fixing Missing Dependencies..."
+                echo -e "${yellow}{sl0p} Fixing Missing Dependencies...${reset}"
                 sleep 3
-                $fixmissing
-                echo -e "$yellow{sl0p} Applying Settings..."
+                eval $fixmissing
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2
-                $apply
-                echo -e "$yellow{sl0p} Upgrading Packages..."
+                eval $apply
+                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
                 sleep 2 
-                $upgrade
+                eval $upgrade
                 ;;
             "Apt File")
-                echo -e "$yellow{sl0p} Fixing APT File Issues..."
+                echo -e "${yellow}{sl0p} Fixing APT File Issues...${reset}"
                 sleep 3
-                $aptfile
+                eval $aptfile
                 sleep 2 
-                echo -e "$yellow{sl0p} Applying Settings..."
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2 
-                $apply
+                eval $apply
                 ;; 
             "CheckSum Fix")
-                echo -e "$yellow{sl0p} Fixing APT Checksum Issues..."
+                echo -e "${yellow}{sl0p} Fixing APT Checksum Issues...${reset}"
                 sleep 3
-                check_mirror
+                eval check_mirror
                 sleep 2 
-                echo -e "$yellow{sl0p} Applying Settings..."
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2 
-                $apply
-                echo -e "$yellow{sl0p} Upgrading Packages..."
+                eval $apply
+                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
                 sleep 2 
-                $upgrade
+                eval $upgrade
                 ;;
             "DPKG Issue Fix")
-                echo -e "$yellow{sl0p} Fixing DPKG Issues..."
+                echo -e "${yellow}{sl0p} Fixing DPKG Issues...${reset}"
                 sleep 3
-                $fixdpkg
-                echo -e "$yellow{sl0p} Applying Settings..."
+                eval $fixdpkg
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2 
-                $apply
-                echo -e "$yellow{sl0p} Upgrading Packages..."
+                eval $apply
+                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
                 sleep 2 
-                $upgrade
+                eval $upgrade
                 ;;
             "Apt Fix With Downgrade")
-                echo -e "$yellow{sl0p} Fixing APT Issues With Downgrade..."
+                echo -e "${yellow}{sl0p} Fixing APT Issues With Downgrade...${reset}"
                 sleep 3
-                checkdowngrade
+                eval checkdowngrade
                 ;;
             "Apt Auto Remove")
-                echo -e "$yellow{sl0p} Auto Removing Unused Packages..."
+                echo -e "${yellow}{sl0p} Auto Removing Unused Packages...${reset}"
                 sleep 3
-                $remove
+                eval $remove
                 sleep 2 
-                $apply
+                eval $apply
                 ;;    
             "Restore Original Kali repo")
-                echo -e "$yellow{sl0p} Restoring Original Kali Repositories..."
+                echo -e "${yellow}{sl0p} Restoring Original Kali Repositories...${reset}"
                 sleep 3
-                $restore
-                echo -e "$yellow{sl0p} Applying Settings..."
+                eval $restore
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2 
-                $apply
-                echo -e "$yellow{sl0p} Upgrading Packages..."
+                eval $apply
+                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
                 sleep 2 
-                $upgrade
+                eval $upgrade
                 ;;
             "Install Every Kali Tool")
-                echo -e "$yellow{sl0p} Installing All Kali Tools..."
+                echo -e "${yellow}{sl0p} Installing Every Kali Tool...${reset}"
                 sleep 3
-                $allinstall
+                eval $allinstall
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
                 sleep 2 
-                echo -e "$yellow{sl0p} Applying Settings..."
-                sleep 2 
-                $apply
+                eval $apply
                 ;;
             "Kernel Fix")
-                echo -e "$yellow{sl0p} Fixing Kernel Issues..."
+                echo -e "${yellow}{sl0p} Fixing Kernel Issues...${reset}"
                 sleep 3
-                $fixkernel
+                eval $fixkernel
+                sleep 2 
+                eval $apply
                 ;;
             "Update Grub")
-                echo -e "$yellow{sl0p} Updating GRUB..."
+                echo -e "${yellow}{sl0p} Updating Grub...${reset}"
                 sleep 3
-                $updategrub
+                eval $updategrub
                 ;;
             "System Health Check")
-                echo -e "$yellow{sl0p} Running System Health Check..."
+                echo -e "${yellow}{sl0p} Checking System Health...${reset}"
                 sleep 3
-                $healthcheck
+                eval $healthcheck
+                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
+                sleep 2 
+                eval $apply
                 ;;
             "Exit")
-                echo -e "$yellow{sl0p} Exiting Script."
+                echo -e "${yellow}{sl0p} Exiting Script.${reset}"
                 break
                 ;;
-            *) echo -e "$red{sl0p} Invalid Option! Try again.";;
+            *)
+                echo -e "${red}{sl0p} Invalid Option! Try again.${reset}"
+                ;;
         esac
     done
 }
