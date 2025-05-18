@@ -1,10 +1,10 @@
 # 🛠️ sl0ppyr00t Kali Repair Arsenal
 
-**Version:** 1.1  
-**Author:** P.Hoogeveen
-**AKA:** x0xr00t
-**Team:** sl0ppyr00t 
-**Purpose:** Instant repair toolkit for broken, misconfigured, or unstable **Kali Linux** systems (2023+), tailored for red team operations, field-deployments, or recovery from package hell.
+* **Version:** 1.1  
+* **Author:** P.Hoogeveen
+* **AKA:** x0xr00t
+* **Team:** sl0ppyr00t 
+* **Purpose:** Instant repair toolkit for broken, misconfigured, or unstable **Kali Linux** systems (2023+), tailored for red team operations, field-deployments, or recovery from package hell.
 
 ---
 
