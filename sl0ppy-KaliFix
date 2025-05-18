@@ -3,64 +3,150 @@
 # Team sl0ppyr00t Kali Issue Fixer
 # Author: x0xr00t
 
-# Check if running as root
+# Ensure the script is run as root
 if (( $EUID != 0 )); then
-    echo -e "\e[91mPlease run as root\e[0m"
-    exit
+    echo -e "\e[91m[!] Please run as root.\e[0m"
+    exit 1
 fi
 
-# Define color variables
-red='\e[91m'
-yellow='\e[93m'
-white='\e[97m'
-reset='\e[0m'
+# Color codes
+RED='\e[91m'
+YELLOW='\e[93m'
+WHITE='\e[97m'
+RESET='\e[0m'
 
-auth="P.Hoogeveen"
+# Author Info
+AUTH="P.Hoogeveen"
 AKA="x0xr00t"
 
-# Define commands
-fixapt="apt clean && apt --fix-missing -y"
-aptfile="apt-get purge apt-file -y && apt-get install apt-file -y && apt-file update"
-fixdpkg="apt clean && dpkg --configure -a && apt install -f"
-fixchsum='echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" > /etc/apt/sources.list'
-fixbroken="apt --fix-broken install -y && apt update"
-fixmissing="apt --fix-missing -y && apt update"
-apply="apt update -y"
-upgrade="apt full-upgrade -y"
-downgrade="apt clean && apt full-upgrade --allow-downgrades -y"
-remove="apt autoremove -y"
-restore='echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list'
-allinstall="apt install kali-linux-everything -y"
-updategrub="update-grub && grub-install /dev/sda"
-fixkernel="dpkg --list | grep linux-image && apt-get purge linux-image-OLD_VERSION && apt-get install linux-image-newest -y"
-healthcheck="dpkg --audit && apt --fix-broken install -y && apt autoremove -y && apt clean"
+# Function Definitions
+function fix_apt() {
+    echo -e "${YELLOW}[+] Cleaning APT cache and fixing missing packages...${RESET}"
+    apt clean
+    apt --fix-missing -y
+    apt update -y
+    apt full-upgrade -y
+}
 
-# Function to check mirror availability
-check_mirror() {
+function fix_dpkg() {
+    echo -e "${YELLOW}[+] Reconfiguring DPKG and fixing broken dependencies...${RESET}"
+    dpkg --configure -a
+    apt install -f -y
+    apt update -y
+    apt full-upgrade -y
+}
+
+function fix_broken() {
+    echo -e "${YELLOW}[+] Fixing broken packages...${RESET}"
+    apt --fix-broken install -y
+    apt update -y
+    apt full-upgrade -y
+}
+
+function fix_missing() {
+    echo -e "${YELLOW}[+] Fixing missing dependencies...${RESET}"
+    apt --fix-missing install -y
+    apt update -y
+    apt full-upgrade -y
+}
+
+function apt_file_fix() {
+    echo -e "${YELLOW}[+] Reinstalling apt-file and updating...${RESET}"
+    apt-get purge apt-file -y
+    apt-get install apt-file -y
+    apt-file update
+}
+
+function checksum_fix() {
+    echo -e "${YELLOW}[+] Checking mirror availability...${RESET}"
     if ping -c 1 kali.cs.nctu.edu.tw &>/dev/null; then
-        echo -e "${yellow}{sl0p} Using NCTU mirror...${reset}"
+        echo -e "${YELLOW}[+] Using NCTU mirror...${RESET}"
         echo "deb http://kali.cs.nctu.edu.tw/kali kali-last-snapshot main contrib non-free" > /etc/apt/sources.list
     else
-        echo -e "${red}{sl0p} NCTU mirror not reachable. Restoring original source list.${reset}"
-        eval $restore
+        echo -e "${RED}[!] NCTU mirror not reachable. Restoring original source list.${RESET}"
+        echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list
     fi
+    apt update -y
+    apt full-upgrade -y
 }
 
-# Function to check and perform downgrade only if needed
-checkdowngrade() {
+function downgrade_fix() {
+    echo -e "${YELLOW}[+] Checking for packages eligible for downgrade...${RESET}"
     if apt list --upgradable | grep downgrade &>/dev/null; then
-        echo -e "${yellow}{sl0p} Downgrading packages...${reset}"
-        eval $downgrade
+        echo -e "${YELLOW}[+] Downgrading packages...${RESET}"
+        apt clean
+        apt full-upgrade --allow-downgrades -y
     else
-        echo -e "${yellow}{sl0p} No downgrades needed.${reset}"
+        echo -e "${YELLOW}[+] No downgrades needed.${RESET}"
     fi
 }
 
-# Menu function
-menu() {
-    clear
-    echo -e "${red}"
+function auto_remove() {
+    echo -e "${YELLOW}[+] Removing unused packages...${RESET}"
+    apt autoremove -y
+    apt update -y
+}
 
+function restore_repo() {
+    echo -e "${YELLOW}[+] Restoring original Kali repositories...${RESET}"
+    echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list
+    apt update -y
+    apt full-upgrade -y
+}
+
+function install_all_tools() {
+    echo -e "${YELLOW}[+] Installing every Kali tool...${RESET}"
+    apt install kali-linux-everything -y
+    apt update -y
+}
+
+function kernel_fix() {
+    echo -e "${YELLOW}[+] Fixing kernel issues...${RESET}"
+    CURRENT_KERNEL=$(uname -r)
+    echo -e "${YELLOW}[+] Current kernel: $CURRENT_KERNEL${RESET}"
+    echo -e "${YELLOW}[+] Listing installed kernels...${RESET}"
+    dpkg --list | grep linux-image
+    echo -e "${YELLOW}[+] Please identify and remove old kernels manually if necessary.${RESET}"
+    apt update -y
+}
+
+function update_grub() {
+    echo -e "${YELLOW}[+] Updating GRUB...${RESET}"
+    update-grub
+    grub-install /dev/sda
+}
+
+function health_check() {
+    echo -e "${YELLOW}[+] Performing system health check...${RESET}"
+    dpkg --audit
+    apt --fix-broken install -y
+    apt autoremove -y
+    apt clean
+    apt update -y
+}
+
+# Menu Options
+options=(
+    "APT Fix"
+    "APT Broken Install Fix"
+    "APT Missing Fix"
+    "Apt File Fix"
+    "Checksum Fix"
+    "DPKG Issue Fix"
+    "Apt Fix With Downgrade"
+    "Apt Auto Remove"
+    "Restore Original Kali Repo"
+    "Install Every Kali Tool"
+    "Kernel Fix"
+    "Update Grub"
+    "System Health Check"
+    "Exit"
+)
+
+# Menu Function
+function menu() {
+    clear
+    echo -e "${RED}"
     cat << "EOF"
   ██████  ██▓     ▒█████   ██▓███   ██▓███ ▓██   ██▓ ██▀███   ▒█████   ▒█████  ▄▄▄█████▓
 ▒██    ▒ ▓██▒    ▒██▒  ██▒▓██░  ██▒▓██░  ██▒▒██  ██▒▓██ ▒ ██▒▒██▒  ██▒▒██▒  ██▒▓  ██▒ ▓▒
@@ -73,164 +159,61 @@ menu() {
       ░      ░  ░    ░ ░                    ░ ░         ░         ░ ░      ░ ░
                                             ░ ░
 EOF
+    echo -e "${WHITE}Author: ${RED}$AUTH ${WHITE}AKA: ${RED}$AKA${RESET}"
+    echo -e "${YELLOW}[!] GIFT: Added installer for every Kali tool${RESET}"
+    echo -e "${YELLOW}"
 
-    echo -e "$yellow"
-    echo ".%%..%%...%%%%...%%......%%%%%%..%%%%%%..%%%%%%..%%..%%."
-    echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
-    echo ".%%%%....%%%%%%..%%........%%....%%%%......%%......%%..."
-    echo ".%%.%%...%%..%%..%%........%%....%%........%%.....%%%%.."
-    echo ".%%..%%..%%..%%..%%%%%%..%%%%%%..%%......%%%%%%..%%..%%."
-    echo "........................................................"
-    echo -e "${white}Author: ${red}$auth ${white}AKA: ${red}$AKA${reset}"
-    echo -e "${yellow}{!} GIFT: Added installer for every Kali tool${reset}"
-    echo -e "${yellow}"
-
-    # Menu options
     select opt in "${options[@]}"; do
         case $opt in
             "APT Fix")
-                echo -e "${yellow}{sl0p} Fixing APT Issues...${reset}"
-                sleep 3
-                eval $fixapt
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
-                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
-                sleep 2 
-                eval $upgrade
+                fix_apt
                 ;;
             "APT Broken Install Fix")
-                echo -e "${yellow}{sl0p} Fixing Broken Install Issues...${reset}"
-                sleep 3
-                eval $fixbroken
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
-                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
-                sleep 2 
-                eval $upgrade
+                fix_broken
                 ;;
             "APT Missing Fix")
-                echo -e "${yellow}{sl0p} Fixing Missing Dependencies...${reset}"
-                sleep 3
-                eval $fixmissing
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2
-                eval $apply
-                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
-                sleep 2 
-                eval $upgrade
+                fix_missing
                 ;;
-            "Apt File")
-                echo -e "${yellow}{sl0p} Fixing APT File Issues...${reset}"
-                sleep 3
-                eval $aptfile
-                sleep 2 
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
-                ;; 
-            "CheckSum Fix")
-                echo -e "${yellow}{sl0p} Fixing APT Checksum Issues...${reset}"
-                sleep 3
-                eval check_mirror
-                sleep 2 
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
-                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
-                sleep 2 
-                eval $upgrade
+            "Apt File Fix")
+                apt_file_fix
+                ;;
+            "Checksum Fix")
+                checksum_fix
                 ;;
             "DPKG Issue Fix")
-                echo -e "${yellow}{sl0p} Fixing DPKG Issues...${reset}"
-                sleep 3
-                eval $fixdpkg
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
-                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
-                sleep 2 
-                eval $upgrade
+                fix_dpkg
                 ;;
             "Apt Fix With Downgrade")
-                echo -e "${yellow}{sl0p} Fixing APT Issues With Downgrade...${reset}"
-                sleep 3
-                eval checkdowngrade
+                downgrade_fix
                 ;;
             "Apt Auto Remove")
-                echo -e "${yellow}{sl0p} Auto Removing Unused Packages...${reset}"
-                sleep 3
-                eval $remove
-                sleep 2 
-                eval $apply
-                ;;    
-            "Restore Original Kali repo")
-                echo -e "${yellow}{sl0p} Restoring Original Kali Repositories...${reset}"
-                sleep 3
-                eval $restore
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
-                echo -e "${yellow}{sl0p} Upgrading Packages...${reset}"
-                sleep 2 
-                eval $upgrade
+                auto_remove
+                ;;
+            "Restore Original Kali Repo")
+                restore_repo
                 ;;
             "Install Every Kali Tool")
-                echo -e "${yellow}{sl0p} Installing Every Kali Tool...${reset}"
-                sleep 3
-                eval $allinstall
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
+                install_all_tools
                 ;;
             "Kernel Fix")
-                echo -e "${yellow}{sl0p} Fixing Kernel Issues...${reset}"
-                sleep 3
-                eval $fixkernel
-                sleep 2 
-                eval $apply
+                kernel_fix
                 ;;
             "Update Grub")
-                echo -e "${yellow}{sl0p} Updating Grub...${reset}"
-                sleep 3
-                eval $updategrub
+                update_grub
                 ;;
             "System Health Check")
-                echo -e "${yellow}{sl0p} Checking System Health...${reset}"
-                sleep 3
-                eval $healthcheck
-                echo -e "${yellow}{sl0p} Applying Settings...${reset}"
-                sleep 2 
-                eval $apply
+                health_check
                 ;;
             "Exit")
-                echo -e "${yellow}{sl0p} Exiting Script.${reset}"
+                echo -e "${YELLOW}[+] Exiting Script.${RESET}"
                 break
                 ;;
             *)
-                echo -e "${red}{sl0p} Invalid Option! Try again.${reset}"
+                echo -e "${RED}[!] Invalid Option! Try again.${RESET}"
                 ;;
         esac
     done
 }
 
-# Main Menu Options
-options=(
-    "APT Fix"
-    "APT Broken Install Fix"
-    "APT Missing Fix"
-    "Apt File"
-    "CheckSum Fix"
-    "DPKG Issue Fix"
-    "Apt Fix With Downgrade"
-    "Apt Auto Remove"
-    "Restore Original Kali repo"
-    "Install Every Kali Tool"
-    "Kernel Fix"
-    "Update Grub"
-    "System Health Check"
-    "Exit"
-)
-
+# Run the menu
 menu
