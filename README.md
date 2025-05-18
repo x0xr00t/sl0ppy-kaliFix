@@ -13,6 +13,7 @@
 - ✅ **Modular design** – each repair action is a function
 - 🚑 **APT & DPKG healing** – auto-fix broken states
 - ⚙️ **Kernel & GRUB fixes** – inspect and repair bootloaders
+- ⚙️ **Signing Key** - fixes signing keys issues
 - 🌐 **Mirror auto-switch** – fallback to alternate repo if broken
 - 📦 **Fix update/upgrade issues** – stops apt-looping and update failures
 - 💀 **Downgrade detection** – safely revert unstable upgrades
