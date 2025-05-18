@@ -74,13 +74,10 @@ sudo ./sl0ppyr00t-kali-fixer.sh
 ## 📜 License
 
 This script is released under the Do What The Fuck You Want To Public License (WTFPL).
-Use it, break it, patch it, fork it. Just don’t blame sl0ppyr00t when your grub.cfg explodes.
+Use it, break it, patch it, fork it. Just don’t blame x0xr00t from team sl0ppyr00t when your grub.cfg explodes.
 💣 Credits
 
-Crafted in the depths of cyberwarfare by sl0ppyr00t
+Crafted in the depths of cyberwarfare by x0xr00t from team sl0ppyr00t
 If it boots, I fix it. If it doesn’t, I nuke it.
 ```
 
----
-
-sl0ppy: `paste that in your repo root as `README.md` — looks fire on GitHub Pages, too. Want badge
