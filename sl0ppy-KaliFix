@@ -19,7 +19,8 @@ RESET='\e[0m'
 AUTH="P.Hoogeveen"
 AKA="x0xr00t"
 
-# Function Definitions
+# === Function Definitions === #
+
 function fix_apt() {
     echo -e "${YELLOW}[+] Cleaning APT cache and fixing missing packages...${RESET}"
     apt clean
@@ -125,7 +126,23 @@ function health_check() {
     apt update -y
 }
 
-# Menu Options
+function fix_repo_key_issue() {
+    echo -e "${YELLOW}[+] Fixing Kali repository signing key issue...${RESET}"
+    wget -q -O /usr/share/keyrings/kali-archive-keyring.gpg https://archive.kali.org/archive-key.asc
+    if [ $? -eq 0 ]; then
+        echo -e "${YELLOW}[+] Successfully downloaded latest GPG key.${RESET}"
+        echo -e "deb [signed-by=/usr/share/keyrings/kali-archive-keyring.gpg] http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list
+        apt update -y
+        apt install --reinstall kali-archive-keyring -y
+        apt update -y
+        apt full-upgrade -y
+        echo -e "${YELLOW}[+] Repository key restored and system updated.${RESET}"
+    else
+        echo -e "${RED}[!] Failed to fetch the new signing key. Check your network connection or manually verify URL.${RESET}"
+    fi
+}
+
+# === Menu Options === #
 options=(
     "APT Fix"
     "APT Broken Install Fix"
@@ -140,10 +157,11 @@ options=(
     "Kernel Fix"
     "Update Grub"
     "System Health Check"
+    "Fix Repo Signing Key Issue"
     "Exit"
 )
 
-# Menu Function
+# === Menu Display === #
 function menu() {
     clear
     echo -e "${RED}"
@@ -165,55 +183,25 @@ EOF
 
     select opt in "${options[@]}"; do
         case $opt in
-            "APT Fix")
-                fix_apt
-                ;;
-            "APT Broken Install Fix")
-                fix_broken
-                ;;
-            "APT Missing Fix")
-                fix_missing
-                ;;
-            "Apt File Fix")
-                apt_file_fix
-                ;;
-            "Checksum Fix")
-                checksum_fix
-                ;;
-            "DPKG Issue Fix")
-                fix_dpkg
-                ;;
-            "Apt Fix With Downgrade")
-                downgrade_fix
-                ;;
-            "Apt Auto Remove")
-                auto_remove
-                ;;
-            "Restore Original Kali Repo")
-                restore_repo
-                ;;
-            "Install Every Kali Tool")
-                install_all_tools
-                ;;
-            "Kernel Fix")
-                kernel_fix
-                ;;
-            "Update Grub")
-                update_grub
-                ;;
-            "System Health Check")
-                health_check
-                ;;
-            "Exit")
-                echo -e "${YELLOW}[+] Exiting Script.${RESET}"
-                break
-                ;;
-            *)
-                echo -e "${RED}[!] Invalid Option! Try again.${RESET}"
-                ;;
+            "APT Fix") fix_apt ;;
+            "APT Broken Install Fix") fix_broken ;;
+            "APT Missing Fix") fix_missing ;;
+            "Apt File Fix") apt_file_fix ;;
+            "Checksum Fix") checksum_fix ;;
+            "DPKG Issue Fix") fix_dpkg ;;
+            "Apt Fix With Downgrade") downgrade_fix ;;
+            "Apt Auto Remove") auto_remove ;;
+            "Restore Original Kali Repo") restore_repo ;;
+            "Install Every Kali Tool") install_all_tools ;;
+            "Kernel Fix") kernel_fix ;;
+            "Update Grub") update_grub ;;
+            "System Health Check") health_check ;;
+            "Fix Repo Signing Key Issue") fix_repo_key_issue ;;
+            "Exit") echo -e "${YELLOW}[+] Exiting Script.${RESET}"; break ;;
+            *) echo -e "${RED}[!] Invalid Option! Try again.${RESET}" ;;
         esac
     done
 }
 
-# Run the menu
+# Run menu
 menu
