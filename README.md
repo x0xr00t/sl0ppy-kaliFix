@@ -1,4 +1,4 @@
-# 🛠️ sl0ppyr00t Kali Repair Arsenal
+# 🛠️ sl0ppy-kaliFix A sl0ppyr00t Kali Repair Arsenal
 
 * **Version:** 1.1  
 * **Author:** P.Hoogeveen
